@@ -1,83 +1,58 @@
 <script>
 	import { onMount } from 'svelte';
+	import { fetchForms, createForm, updateForm, deleteForm } from '$lib/api.js';
+
 	let name = '';
 	let email = '';
+	let age = '';
 	let message = '';
-  let age = '';
 	let forms = [];
-	let editingId = null; // Track which form is being edited
-	const API = 'http://localhost:3000'; // Backend URL
-	
-	const fetchForms = async () => {
-		const res = await fetch(`${API}/api/forms/`);
-		forms = await res.json();
-    console.log('Fetched forms:', forms);
+	let editingId = null;
+
+	const loadForms = async () => {
+		forms = await fetchForms();
+		console.log('Fetched forms:', forms);
 	};
-	
+
 	const handleSubmit = async () => {
+		const formData = { name, email, age, message };
+
 		if (editingId) {
-      console.log('Editing existing form:', editingId);
-			// Update existing form
-			const res = await fetch(`${API}/api/forms/${editingId}`, {
-				method: 'PUT',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name, email, age, message })
-			});
-			const data = await res.json();
-			
-			// Update the form in the list
-			forms = forms.map(form => 
-				form.id === editingId 
-					? { ...form, name: data.name, email: data.email,age:data.age, message: data.message }
-					: form
+			console.log('Editing form:', editingId);
+			const updated = await updateForm(editingId, formData);
+			forms = forms.map(form =>
+				form.id === editingId ? { ...form, ...updated } : form
 			);
-			
-			// Reset to create mode
 			editingId = null;
-      fetchForms(); // Refresh the list
+			await loadForms(); // Optional: for accurate syncing
 		} else {
-      console.log('Creating new form');
-			// Create new form
-			const res = await fetch(`${API}/api/forms/`, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name, email, age, message })
-			});
-			const data = await res.json();
-			forms = [...forms, data];
+			console.log('Creating form');
+			const created = await createForm(formData);
+			forms = [...forms, created];
 		}
-		
-		// Clear form fields
+
+		// Clear fields
 		name = email = age = message = '';
 	};
-	
-	const deleteForm = async (id) => {
-		await fetch(`${API}/api/forms/${id}`, { method: 'DELETE' });
-		forms = forms.filter((form) => form.id !== id);
-		
-		// If we're currently editing the deleted form, reset to create mode
-		if (editingId === id) {
-			editingId = null;
-			name = email = age = message = '';
-		}
+
+	const handleDelete = async (id) => {
+		await deleteForm(id);
+		forms = forms.filter(form => form.id !== id);
+		if (editingId === id) cancelEdit();
+		loadForms();
 	};
-	
+
 	const enableEdit = (form) => {
-		// Load form data into the main form
-		name = form.name;
-		email = form.email;
-    age = form.age;
-		message = form.message;
+		({ name, email, age, message } = form);
 		editingId = form.id;
 	};
-	
+
 	const cancelEdit = () => {
-		// Reset to create mode
 		editingId = null;
 		name = email = age = message = '';
 	};
-	
-	onMount(fetchForms);
+
+	onMount(loadForms);
 </script>
 
 <h1>{editingId ? 'Update' : 'Submit Your'} Info</h1>
@@ -108,7 +83,7 @@
 			<button on:click={() => enableEdit(form)} disabled={editingId === form.id}>
 				✏️ Edit
 			</button>
-			<button on:click={() => deleteForm(form.id)}>🗑 Delete</button>
+			<button on:click={() => handleDelete(form.id)}>🗑 Delete</button>
 		</div>
 	</div>
 {/each}
