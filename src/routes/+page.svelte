@@ -1,31 +1,70 @@
 <script>
+  import { onMount } from 'svelte';
+  import { sendMessage, fetchMessages } from '$lib/api.js';
+
   let p1Message = "";
   let p2Message = "";
 
   let p1Chats = [];
   let p2Chats = [];
 
-function sendP1() {
-  if (p1Message.trim()) {
-    p1Chats.push({ from: "p1", text: p1Message });
-    p1Chats = [...p1Chats];
-    p2Chats.push({ from: "p1", text: p1Message });
-    p2Chats = [...p2Chats];
-    p1Message = "";
-  }
-}
+  const p1 = 1;
+  const p2 = 2;
 
-function sendP2() {
-  if (p2Message.trim()) {
-    p2Chats.push({ from: "p2", text: p2Message });
-    p2Chats = [...p2Chats];
-    p1Chats.push({ from: "p2", text: p2Message });
-    p1Chats = [...p1Chats];
-    p2Message = "";
+  async function loadChats() {
+    const data = await fetchMessages(p1, p2);
+    
+    p1Chats = data.map(d => ({ from: d.sender_id === p1 ? 'p1' : 'p2', text: d.message }));
+    p2Chats = data.map(d => ({ from: d.sender_id === p2 ? 'p2' : 'p1', text: d.message }));
   }
-}
 
+  async function sendP1() {
+    if (p1Message.trim()) {
+      await sendMessage(p1, p2, p1Message);
+      p1Message = "";
+      await loadChats();
+    }
+  }
+
+  async function sendP2() {
+    if (p2Message.trim()) {
+      await sendMessage(p2, p1, p2Message);
+      p2Message = "";
+      await loadChats();
+    }
+  }
+
+  onMount(() => {
+    loadChats();
+  });
 </script>
+<div class="container">
+  <div class="chat-box">
+    <h3>Person 1</h3>
+    <div class="chat-window">
+      {#each p1Chats as chat}
+        <div class="chat-message {chat.from === 'p1' ? 'right' : 'left'}">{chat.text}</div>
+      {/each}
+    </div>
+    <div class="input-group">
+      <input bind:value={p1Message} placeholder="Type a message..." />
+      <button on:click={sendP1}>Send</button>
+    </div>
+  </div>
+
+  <div class="chat-box">
+    <h3>Person 2</h3>
+    <div class="chat-window">
+      {#each p2Chats as chat}
+        <div class="chat-message {chat.from === 'p2' ? 'right' : 'left'}">{chat.text}</div>
+      {/each}
+    </div>
+    <div class="input-group">
+      <input bind:value={p2Message} placeholder="Type a message..." />
+      <button on:click={sendP2}>Send</button>
+    </div>
+  </div>
+</div>
 
 <style>
   * {
@@ -125,31 +164,5 @@ function sendP2() {
   }
 </style>
 
-<div class="container">
-  <div class="chat-box">
-    <h3>Person 1</h3>
-    <div class="chat-window">
-      {#each p1Chats as chat}
-        <div class="chat-message {chat.from === 'p1' ? 'right' : 'left'}">{chat.text}</div>
-      {/each}
-    </div>
-    <div class="input-group">
-      <input bind:value={p1Message} placeholder="Type a message..." />
-      <button on:click={sendP1}>Send</button>
-    </div>
-  </div>
 
-  <div class="chat-box">
-    <h3>Person 2</h3>
-    <div class="chat-window">
-      {#each p2Chats as chat}
-        <div class="chat-message {chat.from === 'p2' ? 'right' : 'left'}">{chat.text}</div>
-      {/each}
-    </div>
-    <div class="input-group">
-      <input bind:value={p2Message} placeholder="Type a message..." />
-      <button on:click={sendP2}>Send</button>
-    </div>
-  </div>
-</div>
 
