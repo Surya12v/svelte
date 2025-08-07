@@ -45,6 +45,7 @@
 		"prettier-plugin-svelte": "^3.3.3",
 		"publint": "^0.3.2",
 		"svelte": "^5.0.0",
+		"svelte-maplibre-gl": "^1.0.1",
 		"typescript": "^5.3.2",
 		"vite": "^7.0.4"
 	},
@@ -53,7 +54,9 @@
 	],
 	"dependencies": {
 		"axios": "^1.11.0",
+		"leaflet": "^1.9.4",
 		"maplibre-gl": "^5.6.1",
-		"svelte-maplibre-gl": "^1.0.1"
+		"svelte-leaflet": "^0.2.0",
+		"svelte-leafletjs": "^2.0.0"
 	}
 }

@@ -1,0 +1,142 @@
+[
+  {
+    "name": "New Delhi",
+    "state": "Delhi",
+    "latlng": [28.6139, 77.2090]
+  },
+  {
+    "name": "Mumbai",
+    "state": "Maharashtra",
+    "latlng": [19.0760, 72.8777]
+  },
+  {
+    "name": "Chennai",
+    "state": "Tamil Nadu",
+    "latlng": [13.0827, 80.2707]
+  },
+  {
+    "name": "Kolkata",
+    "state": "West Bengal",
+    "latlng": [22.5726, 88.3639]
+  },
+  {
+    "name": "Bengaluru",
+    "state": "Karnataka",
+    "latlng": [12.9716, 77.5946]
+  },
+  {
+    "name": "Hyderabad",
+    "state": "Telangana",
+    "latlng": [17.3850, 78.4867]
+  },
+  {
+    "name": "Ahmedabad",
+    "state": "Gujarat",
+    "latlng": [23.0225, 72.5714]
+  },
+  {
+    "name": "Jaipur",
+    "state": "Rajasthan",
+    "latlng": [26.9124, 75.7873]
+  },
+  {
+    "name": "Lucknow",
+    "state": "Uttar Pradesh",
+    "latlng": [26.8467, 80.9462]
+  },
+  {
+    "name": "Patna",
+    "state": "Bihar",
+    "latlng": [25.5941, 85.1376]
+  },
+    {
+        "name": "Kanpur",
+        "state": "Uttar Pradesh",
+        "latlng": [26.4499, 80.3319]
+    },
+    {
+        "name": "Nagpur",
+        "state": "Maharashtra",
+        "latlng": [21.1458, 79.0882]
+    },
+    {
+        "name": "Indore",
+        "state": "Madhya Pradesh",
+        "latlng": [22.7196, 75.8577]
+    },
+    {
+        "name": "Thane",
+        "state": "Maharashtra",
+        "latlng": [19.2183, 72.9781]
+    },
+    {
+        "name": "Bhopal",
+        "state": "Madhya Pradesh",
+        "latlng": [23.2599, 77.4126]
+    },
+    {
+        "name": "Visakhapatnam",
+        "state": "Andhra Pradesh",
+        "latlng": [17.6868, 83.2185]
+    },
+    {
+        "name": "Pune",
+        "state": "Maharashtra",
+        "latlng": [18.5204, 73.8567]
+    },
+    {
+        "name": "Vadodara",
+        "state": "Gujarat",
+        "latlng": [22.3072, 73.1812]
+    },
+    {
+        "name": "Ghaziabad",
+        "state": "Uttar Pradesh",
+        "latlng": [28.6692, 77.4538]
+    },
+    {
+        "name": "Ludhiana",
+        "state": "Punjab",
+        "latlng": [30.9009, 75.8573]
+    },
+    {
+        "name": "Agra",
+        "state": "Uttar Pradesh",
+        "latlng": [27.1767, 78.0081]
+    },
+    {
+        "name": "Nashik",
+        "state": "Maharashtra",
+        "latlng": [19.9975, 73.7898]
+    },
+    {
+        "name": "Faridabad",
+        "state": "Haryana",
+        "latlng": [28.4089, 77.3178]
+    },
+    {
+        "name": "Meerut",
+        "state": "Uttar Pradesh",
+        "latlng": [28.9845, 77.7064]
+    },
+    {
+        "name": "Rajkot",
+        "state": "Gujarat",
+        "latlng": [22.3039, 70.8022]
+    },
+    {
+        "name": "Kalyan-Dombivli",
+        "state": "Maharashtra",
+        "latlng": [19.2183, 73.1528]
+    },
+    {
+        "name": "Vasai-Virar",
+        "state": "Maharashtra",
+        "latlng": [19.3923, 72.8347]
+    },
+    {
+        "name": "Varanasi",
+        "state": "Uttar Pradesh",
+        "latlng": [25.3176, 82.9739]
+    }
+]
